@@ -1,17 +1,21 @@
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
-import {loader} from "../main";
-import { gallery } from "../main";
+import {loader} from "../main.js";
+import { gallery } from "../main.js";
+import {getImagesByQuery} from "./pixabay-api.js";
+import {inputHandle} from "../main.js"
+import iziToast from "izitoast";
+import "izitoast/dist/css/iziToast.min.css";
 
 
 
-
+ let lightbox = new SimpleLightbox(".gallery a");
 
 export function createGallery(images){
  return images.map(({webformatURL, largeImageURL, tags, likes, views, comments, downloads}) => 
  `<li class="gallery-list">
  <a class="gallery-link" href="${largeImageURL}">
- <img class="gallery-img" src="${webformatURL}" alt ="${tags}" width="360" heigth="200"/>
+ <img class="gallery-img" src="${webformatURL}" alt ="${tags}" width="360" height="200"/>
  </a>
  <ul class="info">
  <li class="info-list">
@@ -33,16 +37,44 @@ export function createGallery(images){
  </ul>
  </li>`).join("");
 }
+    getImagesByQuery(inputHandle)
+    .then(response => {
+        const responseUser = response.data.hits;
+        if(responseUser.length === 0){
+           showError();
+        }
+    
+    gallery.innerHTML = createGallery(responseUser);
+    lightbox.refresh();
+})
+    .catch(error => {
+        showError();
+})
+    .finally(message => {
+        hideLoader();
+    })   
+    console.log(getImagesByQuery(inputHandle));
+    
 
 
 export function clearGallery(){
-  return gallery.innerHTML = "";
+   gallery.innerHTML = "";
 }
 
 export function showLoader(){
-   return loader.classList.remove("hide");
+    loader.classList.remove("hide");
 }
 
 export function hideLoader(){
-return loader.classList.add("hide");
+ loader.classList.add("hide");
 }
+ function showError(){
+     iziToast.error({
+                message: 'Sorry, there are no images matching your search query. Please try again!',
+                messageColor: "#fafafb",
+                backgroundColor: "#ef4040",
+                messageSize: "16px",
+                position: "topRight",
+                icon: 'material-icons',
+            })
+ }
