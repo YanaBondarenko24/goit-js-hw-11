@@ -23,22 +23,22 @@ export let inputHandle = "";
         return;
     }
     processingResponse()
-    render.hideLoader()
 }
 
 function processingResponse(){
     getImagesByQuery(inputHandle)
     .then(response => {
         if(response.length === 0){
-           showError();
-        } 
-        render.markup;
+           render.showError();
+        } else{
+        render.markup(response);
+    }
 })
-    .catch(error => {
-        showError();
+    .catch(() => {
+        render.showError();
 })
-    .finally(message => {
-        hideLoader();
+    .finally(() => {
+        render.hideLoader();
     })   
 }
     

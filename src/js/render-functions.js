@@ -3,7 +3,7 @@ import "simplelightbox/dist/simple-lightbox.min.css";
 import {loader} from "../main.js";
 import { gallery } from "../main.js";
 
-import {inputHandle} from "../main.js"
+import {inputHandle} from "../main.js";
 import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
 
@@ -38,8 +38,8 @@ export function createGallery(images){
  </li>`).join("");
 }
    
-export function markup(images){
-    gallery.innerHTML = createGallery(response);
+export function markup(arr){
+    gallery.innerHTML = createGallery(arr);
     lightbox.refresh();
 }
 
