@@ -37,13 +37,15 @@ export function createGallery(images){
  </ul>
  </li>`).join("");
 }
-    getImagesByQuery(inputHandle)
+   
+export function processingResponse(){
+        getImagesByQuery(inputHandle)
     .then(response => {
+        response.data;
         const responseUser = response.data.hits;
         if(responseUser.length === 0){
            showError();
-        }
-    
+        } 
     gallery.innerHTML = createGallery(responseUser);
     lightbox.refresh();
 })
@@ -53,7 +55,7 @@ export function createGallery(images){
     .finally(message => {
         hideLoader();
     })   
-    console.log(getImagesByQuery(inputHandle));
+}
     
 
 
@@ -68,7 +70,8 @@ export function showLoader(){
 export function hideLoader(){
  loader.classList.add("hide");
 }
- function showError(){
+ 
+function showError(){
      iziToast.error({
                 message: 'Sorry, there are no images matching your search query. Please try again!',
                 messageColor: "#fafafb",

@@ -1,13 +1,6 @@
 
 
 import * as render from "./js/render-functions.js";
-import {getImagesByQuery} from "./js/pixabay-api.js";
-
-
-
-
-
-
 
 const form = document.querySelector(".form");
 const input = document.querySelector("input");
@@ -25,18 +18,15 @@ export let inputHandle = "";
     render.showLoader(); 
     render.clearGallery();
    inputHandle = input.value.trim();
-    if(!inputHandle){
+    if(inputHandle === ""){
         render.hideLoader()
         return;
     }
-getImagesByQuery(inputHandle);
+    render.processingResponse()
 }
 
 function handleClick(event){
 if (!event.target.classList.contains("gallery-img")){
- 
-    console.log(event.target);
+ return;
 }
-
-
 }

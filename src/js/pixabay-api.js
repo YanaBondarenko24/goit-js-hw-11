@@ -6,14 +6,13 @@ const urlAPI = "https://pixabay.com/api/";
 
 
 export const  getImagesByQuery = query => {
-     return axios(urlAPI, {params:{
+      return axios(urlAPI, {params:{
         "key": keyAPI,
         "q": `${query}`,
         "image_type": "photo",
         "orientation": "horizontal",
-        "safesearch": "getImagesByQuerytrue"
+        "safesearch": true
     }}) 
-    
 }
 
 
