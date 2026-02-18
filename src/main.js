@@ -22,9 +22,27 @@ export let inputHandle = "";
         render.hideLoader()
         return;
     }
-    render.processingResponse()
+    processingResponse()
+    render.hideLoader()
 }
 
+export function processingResponse(){
+        getImagesByQuery(inputHandle)
+    .then(response => {
+        if(response.length === 0){
+           showError();
+        } 
+    gallery.innerHTML = createGallery(response);
+    lightbox.refresh();
+})
+    .catch(error => {
+        showError();
+})
+    .finally(message => {
+        hideLoader();
+    })   
+}
+    
 function handleClick(event){
 if (!event.target.classList.contains("gallery-img")){
  return;

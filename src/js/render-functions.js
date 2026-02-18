@@ -38,25 +38,7 @@ export function createGallery(images){
  </li>`).join("");
 }
    
-export function processingResponse(){
-        getImagesByQuery(inputHandle)
-    .then(response => {
-        response.data;
-        const responseUser = response.data.hits;
-        if(responseUser.length === 0){
-           showError();
-        } 
-    gallery.innerHTML = createGallery(responseUser);
-    lightbox.refresh();
-})
-    .catch(error => {
-        showError();
-})
-    .finally(message => {
-        hideLoader();
-    })   
-}
-    
+
 
 
 export function clearGallery(){
