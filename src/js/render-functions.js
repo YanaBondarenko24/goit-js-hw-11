@@ -2,7 +2,7 @@ import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
 import {loader} from "../main.js";
 import { gallery } from "../main.js";
-import {getImagesByQuery} from "./pixabay-api.js";
+
 import {inputHandle} from "../main.js"
 import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
@@ -38,8 +38,10 @@ export function createGallery(images){
  </li>`).join("");
 }
    
-
-
+export function markup(images){
+    gallery.innerHTML = createGallery(response);
+    lightbox.refresh();
+}
 
 export function clearGallery(){
    gallery.innerHTML = "";
@@ -53,7 +55,7 @@ export function hideLoader(){
  loader.classList.add("hide");
 }
  
-function showError(){
+export function showError(){
      iziToast.error({
                 message: 'Sorry, there are no images matching your search query. Please try again!',
                 messageColor: "#fafafb",

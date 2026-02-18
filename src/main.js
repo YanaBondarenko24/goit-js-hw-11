@@ -1,5 +1,5 @@
 
-
+import {getImagesByQuery} from "./js/pixabay-api.js";
 import * as render from "./js/render-functions.js";
 
 const form = document.querySelector(".form");
@@ -26,14 +26,13 @@ export let inputHandle = "";
     render.hideLoader()
 }
 
-export function processingResponse(){
-        getImagesByQuery(inputHandle)
+function processingResponse(){
+    getImagesByQuery(inputHandle)
     .then(response => {
         if(response.length === 0){
            showError();
         } 
-    gallery.innerHTML = createGallery(response);
-    lightbox.refresh();
+        render.markup;
 })
     .catch(error => {
         showError();
